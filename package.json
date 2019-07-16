@@ -1,0 +1,19 @@
+{
+  "name": "datamigration",
+  "version": "1.0.0",
+  "description": "A Data Migration tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/publicstream/dataMigration.git"
+  },
+  "author": "publicStream",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/publicstream/dataMigration/issues"
+  },
+  "homepage": "https://github.com/publicstream/dataMigration#readme"
+}
