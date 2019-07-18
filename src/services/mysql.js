@@ -27,13 +27,21 @@ function closeConnection() {
 
 function getTables() {
     return new Promise((resolve, reject) => {
-        mySqlConn.query('show tables', (error, response, fields) => {
+        mySqlConn.query('show tables', (error, response) => {
             if(error) {
-                console.log('error');
                 reject(error);
             }
-            console.log('Response ', response);
-            console.log('Fields', fields);
+            resolve(response);
+        });
+    })
+}
+
+function getColumns(tableName){
+    return new Promise((resolve, reject) => {
+        mySqlConn.query(`show columns from ${tableName}`, (error, response) => {
+            if(error){
+                reject(error);
+            }
             resolve(response);
         });
     })
@@ -42,5 +50,6 @@ function getTables() {
 module.exports = {
     createConnection,
     closeConnection,
-    getTables
+    getTables,
+    getColumns
 }
