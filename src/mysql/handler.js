@@ -18,9 +18,18 @@ async function getColumns(req) {
     return OK(columns);
 }
 
+function randomDataInsertion() {
+    for(var i = 0; i <= 100000; i++) {
+        const query = mySql.getRandomQuery('Persons', i)
+        // console.log(query)
+        mySql.insertData(query)
+    }
+}
+
 
 module.exports = {
     createConnection,
     getTables,
-    getColumns
+    getColumns,
+    randomDataInsertion
 }

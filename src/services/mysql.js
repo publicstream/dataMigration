@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+const util = require('../util')
 var mySqlConn;
 
 function createConnection(host, user, password, db){
@@ -47,9 +48,31 @@ function getColumns(tableName){
     })
 }
 
+function readData(body) {
+    return mySqlConn.query('select * from Persons').stream()
+}
+
+function getRandomQuery(tableName, index) {
+    return `insert into ${tableName} values(${index}, '${util.randomString(5)}', '${util.randomString(7)}', '${util.randomString(3)}', '${util.randomString(4)}');`
+}
+
+function insertData(query) {
+    return new Promise((resolve, reject) => {
+        mySqlConn.query(query, (error, response) => {
+            if(error) {
+                reject(error)
+            }
+            resolve(response)
+        })
+    })
+}
+
 module.exports = {
     createConnection,
     closeConnection,
     getTables,
-    getColumns
+    getColumns,
+    readData,
+    getRandomQuery,
+    insertData
 }
