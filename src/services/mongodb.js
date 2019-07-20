@@ -26,7 +26,7 @@ function createSchema(body) {
 function dataInsertion(body) {
     return new Promise((resolve, reject) => {
         let model = new mongoDbModel(body);
-        model.save((error, response) => {
+        model.insertMany((error, response) => {
             if(error) {
                 reject(error);
             }
