@@ -1,0 +1,27 @@
+{
+  "name": "datamigration",
+  "version": "1.0.0",
+  "description": "A Data Migration tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/publicstream/dataMigration.git"
+  },
+  "author": "publicStream",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/publicstream/dataMigration/issues"
+  },
+  "homepage": "https://github.com/publicstream/dataMigration#readme",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-body": "^4.1.0",
+    "koa-router": "^7.4.0",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.1"
+  }
+}
