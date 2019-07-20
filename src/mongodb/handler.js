@@ -6,6 +6,18 @@ async function createConnection(body){
     return OK(response);
 }
 
+function createSchema(body) {
+    mongoDb.createSchema(body);
+    return OK({msg: "schema created"});
+}
+
+async function randomDataInsertion(body) {
+    var response = await mongoDb.dataInsertion(body)
+    return OK(response);
+}
+
 module.exports = {
-    createConnection
+    createConnection,
+    createSchema,
+    randomDataInsertion
 }
