@@ -49,7 +49,7 @@ function getColumns(tableName){
 }
 
 function readData(body) {
-    return mySqlConn.query('select * from Persons').stream()
+    return mySqlConn.query(`select * from ${body.tableName}`).stream()
 }
 
 function getRandomQuery(tableName, index) {

@@ -1,11 +1,20 @@
 const mySql = require('./services/mysql');
+const mongoDb = require('./services/mongodb');
 const { OK } = require('./requestResponseWrapper');
 
 function portData(body) {
     const readStream = mySql.readData(body)
 
     readStream.on('data', (chunk) => {
-        console.log(JSON.stringify(chunk))
+        let data = JSON.parse(JSON.stringify(chunk))
+        
+        mongoDb.dataInsertion(data)
+        .then((response) => {
+            console.log('res: ', response)
+        })
+        .catch((error) => {
+            console.log('error: ', error)
+        })
     })
     return OK({
         ok: 'ok'
