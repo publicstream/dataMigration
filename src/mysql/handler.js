@@ -23,6 +23,12 @@ function randomDataInsertion() {
         const query = mySql.getRandomQuery('Persons', i)
         // console.log(query)
         mySql.insertData(query)
+        .then((response) => {
+            console.log('res: ', response)
+        })
+        .catch((error) => {
+            console.log('error: ', error)
+        })
     }
 }
 
