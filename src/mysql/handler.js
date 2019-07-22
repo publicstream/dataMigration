@@ -1,15 +1,21 @@
 const mySql = require('../services/mysql');
 const { OK } = require('../requestResponseWrapper');
+var dbName;
 
 function createConnection(body) {
     var { host, user, password, db } = body;
+    dbName = db;
     mySql.createConnection(host, user, password, db);
     return OK({msg:"Connection created"});
 }
 
 async function getTables(req) {
     let tables = await mySql.getTables()
-    return OK(tables);
+    let response = tables.reduce((arr, curr) => {
+        arr.push(curr[`Tables_in_${dbName}`])
+        return arr;
+    },[])
+    return OK(response);
 }
 
 async function getColumns(req) {

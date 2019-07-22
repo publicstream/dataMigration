@@ -19,7 +19,20 @@
         <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
         <input type="text" class="form-control" id="dbName" placeholder="Enter Database Name" name="dbName">
         <button onclick="connectToMysql()">Connect to MySql</button>
-</div>
+
+        <div>     
+          <ul id="table-list"></ul>     
+        </div>
+
+        <div id="myDynamicTable"></div>
+      </div>
+      <div>
+          <h2>Connect to MongoDb</h2>
+          <input type="text" class="form-control" id="mongo_host" placeholder="Enter host url" name="host">
+          <input type="text" class="form-control" id="mongo_dbName" placeholder="Enter Database Name" name="dbName">
+          <button onclick="connectToMongoDb()">Connect to MongoDb</button>
+      </div>
+
 
 </body>
 </html>
