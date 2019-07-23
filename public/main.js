@@ -1,11 +1,5 @@
-/* function connectToMysql(){
-    console.log(document.getElementById("host").value);
-    console.log(document.getElementById("username").value);
-    console.log(document.getElementById("password").value);
-    console.log(document.getElementById("dbName").value);
-    
-}
- */
+var tableName;
+
 async function connectToMysql() {
     let myBody = {
         host:document.getElementById("host").value,
@@ -13,27 +7,22 @@ async function connectToMysql() {
         password:document.getElementById("password").value,
         db:document.getElementById("dbName").value,
     }
-const response = await fetch('http://localhost:3000/mysql/createConnection', {
-    method: 'POST',
-    body: JSON.stringify(myBody),
-    headers: {
-    'Content-Type': 'application/json'
-    }
-});
+const response = await api('http://localhost:3000/mysql/createConnection','POST',myBody);
 
 const myJson = await response.json();
     console.log("myJson: ", myJson);
-    const tables = await fetch('http://localhost:3000/mysql/getTables');
+    const tables = await api('http://localhost:3000/mysql/getTables', 'GET');
     let myTable = await tables.json();
     console.log("myTable : ",myTable);
     showTables(myTable);
 }
 
 async function showColumn(table){
-    let response = await (fetch(`http://localhost:3000/mysql/getColumns/${table}`));
+    let response = await api(`http://localhost:3000/mysql/getColumns/${table}`,'GET')
     let columns = await response.json();
     console.log("columns: ",columns);
     addTable(columns);
+    tableName=table;
 }
 
 function addTable(dbTable) {            
@@ -92,13 +81,30 @@ async function connectToMongoDb() {
         db:document.getElementById("mongo_dbName").value,
     }
 
-    const response = await fetch('http://localhost:3000/mongodb/createConnection', {  
-    method: 'POST',
-    body: JSON.stringify(myBody),
-    headers: {
-    'Content-Type': 'application/json'
-    }
-    });
+    const response = await api('http://localhost:3000/mongodb/createConnection','POST', myBody)
     console.log(response);
 }
 
+async function portData(){
+    let schemaBody = JSON.parse(document.getElementById('portData').value);
+    const body = { schema: schemaBody , collectionName: tableName};
+    console.log('body: ',body); 
+
+   let schema = await api('http://localhost:3000/mongodb/createSchema','POST',body);
+
+   let portResponse = schema ? await api('http://localhost:3000/port', 'POST', {tableName}) : null;
+}
+
+
+function api(url, method, body){
+    return new Promise(async (resolve, reject) => {
+        var response = await fetch(url,{
+        method: method,
+        body: body ? JSON.stringify(body) : null,
+        headers: {
+            'Content-Type': 'application/json'
+            }
+    })
+    resolve(response)
+    })
+}
